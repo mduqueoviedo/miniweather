@@ -4,6 +4,7 @@ weather_api:
   weather_city_id_path: 'weather?id='
   weather_coordinates_lat_path: 'weather?lat='
   weather_coordinates_lon_path: '&lon='
+  units_query: '&units='
   icon_full_path: 'http://openweathermap.org/img/w/'
 mongodb:
   dev:
