@@ -1,0 +1,63 @@
+Metrics/LineLength:
+  Max: 112
+
+# Offense count: 1
+# Cop supports --auto-correct.
+Style/CommentIndentation:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+# Offense count: 3
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'app/controllers/application_controller.rb'
+    - 'app/controllers/home_controller.rb'
+    - 'app/helpers/application_helper.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles.
+# SupportedStyles: compact, expanded
+Style/EmptyMethod:
+  Exclude:
+    - 'app/controllers/home_controller.rb'
+
+# Offense count: 2
+Style/EndOfLine:
+  Exclude:
+    - 'app/controllers/home_controller.rb'
+    - 'spec/controllers/home_controller_spec.rb'
+
+# Offense count: 3
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment, ForceEqualSignAlignment.
+Style/ExtraSpacing:
+  Exclude:
+    - 'bin/rails'
+    - 'config.ru'
+    - 'config/environments/test.rb'
+
+# Offense count: 3
+# Cop supports --auto-correct.
+Style/LeadingCommentSpace:
+  Exclude:
+    - 'spec/rails_helper.rb'
+
+# Offense count: 1
+# Cop supports --auto-correct.
+# Configuration parameters: AllowForAlignment.
+Style/SpaceAroundOperators:
+  Exclude:
+    - 'config/environments/test.rb'
+
+# Offense count: 9
+# Cop supports --auto-correct.
+# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
+# SupportedStyles: single_quotes, double_quotes
+Style/StringLiterals:
+  Exclude:
+    - 'config/application.rb'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
