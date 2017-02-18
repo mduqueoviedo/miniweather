@@ -56,7 +56,7 @@ class WeatherQuery
         latitude: response['coord']['lat'],
         longitude: response['coord']['lon']
       }
-    when 502, '502'
+    when 502, '502' # API Bug: This response comes in string format, the others in integer
       { status: false, error_message: 'City not found' }
     when 401
       { status: false, error_message: 'Unauthorized' }
@@ -67,15 +67,15 @@ class WeatherQuery
 
   def weather_query_url(user_query, is_random)
     weather_query = if is_random
-      rng = Random.new
-      lat = rng.rand(-90.0..90.0).round(3)
-      lon = rng.rand(-180.0..180.0).round(3)
+                      rng = Random.new
+                      lat = rng.rand(-90.0..90.0).round(3)
+                      lon = rng.rand(-180.0..180.0).round(3)
 
-      "#{@host}#{Settings.weather_api.weather_coordinates_lat_path}" \
-        "#{lat}#{Settings.weather_api.weather_coordinates_lon_path}#{lon}"
-    else
-      "#{@host}#{Settings.weather_api.weather_query_path}#{user_query}"
-    end
+                      "#{@host}#{Settings.weather_api.weather_coordinates_lat_path}" \
+                        "#{lat}#{Settings.weather_api.weather_coordinates_lon_path}#{lon}"
+                    else
+                      "#{@host}#{Settings.weather_api.weather_query_path}#{user_query}"
+                    end
     # Add units and api key
     weather_query += Settings.weather_api.units_query + @units if %w(metric imperial).include?(@units.downcase)
     weather_query + Settings.weather_api.key

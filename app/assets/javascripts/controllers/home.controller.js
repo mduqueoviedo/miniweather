@@ -7,6 +7,7 @@ angular.module('miniWeatherApp').controller('HomeController', [
       $scope.getWeather = function(isRandom) {
         $scope.weatherResult = null;
         $scope.error = false;
+        $scope.loading = true;
         var url = '';
 
         if (isRandom) {
@@ -17,6 +18,7 @@ angular.module('miniWeatherApp').controller('HomeController', [
         };
 
         $http.get(url).then(function(response) {
+          $scope.loading = false;
           var res = response['data']['result'];
           if (res['status']) {
             $scope.weatherResult = res;
@@ -26,6 +28,7 @@ angular.module('miniWeatherApp').controller('HomeController', [
             $scope.error_message = res['error_message'];
           }
         }).catch(function(response) {
+          $scope.loading = false;
           res = response['data']['result'];
           $scope.error = true;
           $scope.error_message = res['error_message'];
