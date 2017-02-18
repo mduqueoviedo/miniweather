@@ -1,7 +1,7 @@
-# Wrapper for the query to api
 require 'net/http'
 require 'json'
 
+# Wrapper for the query to api
 class WeatherQuery
   def initialize
     @host = Settings.weather_api.host
