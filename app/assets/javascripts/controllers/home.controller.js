@@ -21,7 +21,7 @@ angular.module('miniWeatherApp').controller('HomeController', [
           var res = response['data']['result'];
           if (res['status']) {
             $scope.weatherResult = res;
-            console.log(res);
+            $scope.reloadLogs();
           } else {
             $scope.error = true;
             $scope.error_message = res['error_message'];
@@ -33,5 +33,17 @@ angular.module('miniWeatherApp').controller('HomeController', [
           $scope.error_message = res['error_message'];
         });
       }
+
+      $scope.reloadLogs = function() {
+        var url = '/api/weather_logs';
+
+        $http.get(url).then(function(response) {
+          $scope.weatherLogs = response['data']['logs'];
+        }).catch(function(response) {
+          $scope.weatherLogs = {};
+        });
+      };
+
+      $scope.reloadLogs();
     }
 ]);

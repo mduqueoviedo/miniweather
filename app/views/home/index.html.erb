@@ -27,9 +27,9 @@
       Loading... <i class="fa fa-cog fa-spin fa-fw"></i>
     </div>
   </div>
-  <div class="row"  ng-if="weatherResult">
+  <div class="row">
     <div class="col-xs-6">
-      <table class="table table-bordered table-striped weather-table">
+      <table class="table table-bordered table-striped weather-table" ng-if="weatherResult">
         <tbody>
           <tr>
             <td colspan="2">
@@ -76,5 +76,27 @@
           </td>
         </tbody>
       </table>
+    </div>
+    <div class="col-xs-6">
+      Previous queries
+      <table class="table table-bordered table-striped" ng-if="weatherLogs.length > 0">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>User query</th>
+            <th>System response code</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="log in weatherLogs">
+            <td>{{log.created_at | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><a href="javascript: void(0);" ng-click="">{{log.user_query}}</a></td>
+            <td>{{log.api_res_code}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-if="weatherLogs.length <= 0">
+        No previous queries
+      </div>
     </div>
   </div>
