@@ -45,7 +45,7 @@ class WeatherQuery
         status: true,
         weather_main: response['weather'].first['main'],
         weather_description: response['weather'].first['description'],
-        weather_icon: response['weather'].first['icon'],
+        weather_icon: icon_url(response['weather'].first['icon']),
         temp: response['main']['temp'],
         temp_max: response['main']['temp_max'],
         temp_min: response['main']['temp_min'],
@@ -54,9 +54,9 @@ class WeatherQuery
         city: response['name'],
         country: response['sys']['country'],
         latitude: response['coord']['lat'],
-        longitude: response['coord']['long']
+        longitude: response['coord']['lon']
       }
-    when 502
+    when 502, '502'
       { status: false, error_message: 'City not found' }
     when 401
       { status: false, error_message: 'Unauthorized' }
@@ -66,7 +66,7 @@ class WeatherQuery
   end
 
   def weather_query_url(user_query, is_random)
-    if is_random
+    weather_query = if is_random
       rng = Random.new
       lat = rng.rand(-90.0..90.0).round(3)
       lon = rng.rand(-180.0..180.0).round(3)
@@ -79,5 +79,9 @@ class WeatherQuery
     # Add units and api key
     weather_query += Settings.weather_api.units_query + @units if %w(metric imperial).include?(@units.downcase)
     weather_query + Settings.weather_api.key
+  end
+
+  def icon_url(icon_name)
+    "#{Settings.weather_api.icon_full_path}#{icon_name}.png"
   end
 end

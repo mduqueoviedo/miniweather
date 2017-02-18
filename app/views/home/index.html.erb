@@ -23,8 +23,27 @@
     </div>
   </form>
   <div class="row weather-block" ng-if="weatherResult">
-    <div class="col-xs-6">
-      {{weatherResult.city}}, {{weatherResult.country}}
+    <div class="col-xs-12">
+      <div class="row">
+        <div class="col-xs-6">
+          <span ng-if="weatherResult.city">
+            Weather at {{weatherResult.city}}, {{weatherResult.country}}
+          </span><br>
+          <span ng-if="!weatherResult.city">
+            Unknown
+          </span>
+          Location: Latitude: {{weatherResult.latitude}}°; Longitude: {{weatherResult.longitude}}°
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-6">
+          Current condition: {{weatherResult.weather_main}} ({{weatherResult.weather_description}})
+          <img ng-src="{{weatherResult.weather_icon}}"
+               alt="weatherResult.weather_main"
+               ng-if="weatherResult.weather_icon"
+          />
+        </div>
+      </div>
     </div>
   </div>
 </div>

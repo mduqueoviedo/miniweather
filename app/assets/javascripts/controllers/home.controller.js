@@ -7,7 +7,14 @@ angular.module('miniWeatherApp').controller('HomeController', [
       $scope.getWeather = function(isRandom) {
         $scope.weatherResult = null;
         $scope.error = false;
-        var url = isRandom ? '/api/query_weather?random=true' : '/api/query_weather?query=' + $scope.search.city;
+        var url = '';
+
+        if (isRandom) {
+          $scope.search = {};
+          url = '/api/query_weather?random=true';
+        } else {
+          url = '/api/query_weather?query=' + $scope.search.city;
+        };
 
         $http.get(url).then(function(response) {
           var res = response['data']['result'];
@@ -15,7 +22,6 @@ angular.module('miniWeatherApp').controller('HomeController', [
             $scope.weatherResult = res;
             console.log(res);
           } else {
-            console.log(res);
             $scope.error = true;
             $scope.error_message = res['error_message'];
           }
@@ -23,7 +29,6 @@ angular.module('miniWeatherApp').controller('HomeController', [
           res = response['data']['result'];
           $scope.error = true;
           $scope.error_message = res['error_message'];
-          console.log(res);
         });
       }
     }
