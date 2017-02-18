@@ -27,28 +27,54 @@
       Loading... <i class="fa fa-cog fa-spin fa-fw"></i>
     </div>
   </div>
-  <div class="row weather-block" ng-if="weatherResult">
-    <div class="col-xs-12">
-      <div class="row">
-        <div class="col-xs-6">
-          <span ng-if="weatherResult.city">
-            Weather at {{weatherResult.city}}, {{weatherResult.country}}
-          </span><br>
-          <span ng-if="!weatherResult.city">
-            Unknown
-          </span>
-          Location: Latitude: {{weatherResult.latitude}}°; Longitude: {{weatherResult.longitude}}°
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs-6">
-          Current condition: {{weatherResult.weather_main}} ({{weatherResult.weather_description}})
-          <img ng-src="{{weatherResult.weather_icon}}"
-               alt="weatherResult.weather_main"
-               ng-if="weatherResult.weather_icon"
-          />
-        </div>
-      </div>
+  <div class="row"  ng-if="weatherResult">
+    <div class="col-xs-6">
+      <table class="table table-bordered table-striped weather-table">
+        <tbody>
+          <tr>
+            <td colspan="2">
+              <div class="weather-summary text-center">
+                <div class="title">Current condition at {{weatherResult.time | date:'dd.MM.yyyy HH:mm' }}</div>
+                <div class="location">
+                  <span ng-if="weatherResult.city">
+                    {{weatherResult.city}}, {{weatherResult.country}}
+                  </span><br>
+                  <span ng-if="!weatherResult.city">
+                    Unknown location (Lat: {{weatherResult.latitude}}°; Lon: {{weatherResult.longitude}}°)
+                  </span>
+                </div>
+                <div class="condition">
+                  <strong>{{weatherResult.weather_main}}</strong>
+                  <small>({{weatherResult.weather_description}})</small>
+                  <img ng-src="{{weatherResult.weather_icon}}"
+                      alt="weatherResult.weather_main"
+                      ng-if="weatherResult.weather_icon"
+                      class="weather-icon"
+                 />
+                 <div class="temperature">
+                   Current temp: {{weatherResult.temp}}°C
+                 </div>
+               </div>
+              </div>
+            </td>
+          </td>
+          <tr>
+            <td>Wind</td>
+            <td>{{weatherResult.wind_speed}}m/s, {{weatherResult.wind_direction}}°</td>
+          </td>
+          <tr>
+            <td>Cloudiness</td>
+            <td>{{weatherResult.cloudiness}}%</td>
+          </td>
+          <tr>
+            <td>Rain volume (last 3 hours)</td>
+            <td>{{weatherResult.rain_volume}}</td>
+          </td>
+          <tr>
+            <td>Snow volume (last 3 hours)</td>
+            <td>{{weatherResult.snow_volume}}</td>
+          </td>
+        </tbody>
+      </table>
     </div>
   </div>
-</div>

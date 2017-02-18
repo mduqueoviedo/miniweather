@@ -54,7 +54,11 @@ class WeatherQuery
         city: response['name'],
         country: response['sys']['country'],
         latitude: response['coord']['lat'],
-        longitude: response['coord']['lon']
+        longitude: response['coord']['lon'],
+        rain_volume: response['rain'].present? ? response['rain']['3h'] : 0,
+        snow_volume: response['snow'].present? ? response['snow']['3h'] : 0,
+        cloudiness: response['clouds']['all'],
+        time: DateTime.now
       }
     when 502, '502' # API Bug: This response comes in string format, the others in integer
       { status: false, error_message: 'City not found' }

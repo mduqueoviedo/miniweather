@@ -17,3 +17,15 @@ body {
 .actionable {
   cursor: pointer;
 }
+
+.weather-table {
+  margin-top: 20px;
+
+  .weather-summary {
+    .title {
+      font-size: 20px;
+      text-decoration: underline;
+      margin-bottom: 5px;
+    }
+  }
+}
