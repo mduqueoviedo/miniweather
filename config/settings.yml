@@ -5,3 +5,6 @@ weather_api:
   weather_coordinates_lat_path: 'weather?lat='
   weather_coordinates_lon_path: '&lon='
   icon_full_path: 'http://openweathermap.org/img/w/'
+mongodb:
+  dev:
+    host: 192.168.99.100:27017
