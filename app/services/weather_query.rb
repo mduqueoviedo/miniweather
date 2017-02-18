@@ -1,5 +1,5 @@
 require 'net/http'
-require 'uri'
+require 'addressable/uri'
 require 'json'
 
 # Wrapper for the query to api
@@ -13,7 +13,7 @@ class WeatherQuery
     weather_query = weather_query_url(user_query, is_random)
 
     begin
-      uri = URI.parse(weather_query)
+      uri = Addressable::URI.parse(weather_query)
       response = Net::HTTP.get_response(uri)
       json_response = JSON.parse(response.body)
 
@@ -59,9 +59,12 @@ class WeatherQuery
     when 502, '502' # API Bug: This response comes in string format, the others in integer
       { status: false, error_message: 'City not found' }
     when 401
-      { status: false, error_message: 'Unauthorized' }
+      { status: false, error_message: 'Unauthorized error. Please contact webmaster.' }
     else
-      { status: false, error_message: "Unexpected api response: #{response['cod']}" }
+      {
+        status: false,
+        error_message: "Unexpected api response: #{response['cod']}. Please contact webmaster."
+      }
     end
   end
 

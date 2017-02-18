@@ -8,13 +8,12 @@ angular.module('miniWeatherApp').controller('HomeController', [
         $scope.weatherResult = null;
         $scope.error = false;
         $scope.loading = true;
-        var url = '';
 
         if (isRandom) {
           $scope.search = {};
-          url = '/api/query_weather?random=true';
+          var url = '/api/query_weather?random=true';
         } else {
-          url = '/api/query_weather?query=' + $scope.search.city;
+          var url = '/api/query_weather?query=' + $scope.search.city;
         };
 
         $http.get(url).then(function(response) {
