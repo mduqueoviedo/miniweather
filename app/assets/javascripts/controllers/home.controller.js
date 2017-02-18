@@ -9,7 +9,7 @@ angular.module('miniWeatherApp').controller('HomeController', [
         $scope.error = false;
         $scope.loading = true;
 
-        if (isRandom) {
+        if (isRandom || $scope.search.city == '') {
           $scope.search = {};
           var url = '/api/query_weather?random=true';
         } else {
@@ -21,20 +21,20 @@ angular.module('miniWeatherApp').controller('HomeController', [
           var res = response['data']['result'];
           if (res['status']) {
             $scope.weatherResult = res;
-            $scope.reloadLogs();
           } else {
             $scope.error = true;
             $scope.error_message = res['error_message'];
-          }
+          };
+          reloadLogs();
         }).catch(function(response) {
-          $scope.loading = false;
           res = response['data']['result'];
+          $scope.loading = false;
           $scope.error = true;
           $scope.error_message = res['error_message'];
         });
-      }
+      };
 
-      $scope.reloadLogs = function() {
+      var reloadLogs = function() {
         var url = '/api/weather_logs';
 
         $http.get(url).then(function(response) {
@@ -44,6 +44,15 @@ angular.module('miniWeatherApp').controller('HomeController', [
         });
       };
 
-      $scope.reloadLogs();
+      $scope.rerunQuery = function(query) {
+        if (query == 'random') {
+          $scope.getWeather(true);
+        } else {
+          $scope.search.city = query;
+          $scope.getWeather(false);
+        }
+      };
+
+      reloadLogs();
     }
 ]);

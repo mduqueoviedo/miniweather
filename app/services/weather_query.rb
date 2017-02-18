@@ -10,8 +10,7 @@ class WeatherQuery
   end
 
   def query(user_query, is_random = false)
-    weather_query = weather_query_url(user_query, is_random)
-
+    weather_query = Addressable::URI.encode_component(weather_query_url(user_query, is_random))
     begin
       uri = Addressable::URI.parse(weather_query)
       response = Net::HTTP.get_response(uri)
