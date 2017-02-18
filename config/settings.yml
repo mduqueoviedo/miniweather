@@ -1,0 +1,6 @@
+weather_api:
+  host: 'http://api.openweathermap.org/data/2.5/'
+  weather_query_path: 'weather?q='
+  weather_city_id_path: 'weather?id='
+  weather_coordinates_lat_path: 'weather?lat='
+  weather_coordinates_lon_path: '&lon='
