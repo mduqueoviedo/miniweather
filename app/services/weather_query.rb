@@ -10,24 +10,10 @@ class WeatherQuery
   end
 
   def query(user_query, is_random = false)
-    weather_query =
-      if is_random
-        rng = Random.new
-        lat = rng.rand(-90.0..90.0).round(3)
-        lon = rng.rand(-180.0..180.0).round(3)
-
-        "#{@host}#{Settings.weather_api.weather_coordinates_lat_path}" \
-          "#{lat}#{Settings.weather_api.weather_coordinates_lon_path}#{lon}"
-      else
-        "#{@host}#{Settings.weather_api.weather_query_path}#{user_query}"
-      end
-    # Add units and api key
-    weather_query += Settings.weather_api.units_query + @units if %w(metric imperial).include?(@units.downcase)
-    weather_query += Settings.weather_api.key
+    weather_query = weather_query_url(user_query, is_random)
 
     begin
       uri = URI.parse(weather_query)
-      p uri
       response = Net::HTTP.get_response(uri)
       json_response = JSON.parse(response.body)
 
@@ -77,5 +63,21 @@ class WeatherQuery
     else
       { status: false, error_message: "Unexpected api response: #{response['cod']}" }
     end
+  end
+
+  def weather_query_url(user_query, is_random)
+    if is_random
+      rng = Random.new
+      lat = rng.rand(-90.0..90.0).round(3)
+      lon = rng.rand(-180.0..180.0).round(3)
+
+      "#{@host}#{Settings.weather_api.weather_coordinates_lat_path}" \
+        "#{lat}#{Settings.weather_api.weather_coordinates_lon_path}#{lon}"
+    else
+      "#{@host}#{Settings.weather_api.weather_query_path}#{user_query}"
+    end
+    # Add units and api key
+    weather_query += Settings.weather_api.units_query + @units if %w(metric imperial).include?(@units.downcase)
+    weather_query + Settings.weather_api.key
   end
 end
