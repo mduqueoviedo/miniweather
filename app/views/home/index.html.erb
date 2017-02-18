@@ -1,7 +1,13 @@
 <div ng-controller="HomeController">
-  <div class="row">
-    <div class="col-sm-12">
-      Hello
+  <form>
+    <div class="form-group">
+      <label class="sr-only" for="city">City</label>
+      <div class="input-group col-xs-6">
+        <input type="text" class="form-control" id="city" placeholder="City, country" name="city" ng-model="search.city">
+        <div class="input-group-addon actionable" ng-click="submit()">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </div>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

@@ -1,6 +1,16 @@
 angular.module('miniWeatherApp').controller('HomeController', [
-    '$scope',
-    function ($scope) {
-      console.log("Hello from controller");
+    '$scope', '$http',
+    function ($scope, $http) {
+      $scope.search = {};
+
+      $scope.submit = function() {
+        var url = '/api/query_weather?query=' + $scope.search.query;
+
+        $http.get(url).then(function(response) {
+          console.log('Ok ' + response);
+        }).catch(function(response) {
+          console.log('Error: ' + response);
+        });
+      }
     }
 ]);
