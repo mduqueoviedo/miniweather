@@ -1,5 +1,5 @@
 Metrics/LineLength:
-  Max: 112
+  Max: 125
 
 # Offense count: 1
 # Cop supports --auto-correct.
