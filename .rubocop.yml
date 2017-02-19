@@ -1,3 +1,13 @@
+Metrics/AbcSize:
+  Max: 45
+
+Metrics/BlockLength:
+  Max: 60
+# Offense count: 3
+# Configuration parameters: CountComments.
+Metrics/MethodLength:
+  Max: 35
+
 Metrics/LineLength:
   Max: 125
 
