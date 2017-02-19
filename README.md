@@ -30,8 +30,10 @@ Simply execute in the console:
 - `./bin/docker/start`
 To install and start the application. In the `bin/docker` folder there are several utility scripts to run the test suites, start, stop and restart the application, start a console and other functions (execute `./bin/docker/<script_name>` when in the project folder).
 
-**Important** When running in systems that use docker-machine instead of native Docker (e.g. Windows 10 Home or lesser), the `localhost` url is not exposed and cannot be directly accessed in the browser.
+**Important:** When running in systems that use docker-machine instead of native Docker (e.g. Windows 10 Home or lesser), the `localhost` url is not exposed and cannot be directly accessed in the browser.
+
 It's necessary to run `docker-machine ip` to get the IP of the generated docker-machine and use then that address in the browser `<ip_given>:3000`.
+
 In this case this IP needs to be updated also in `config/settings.yml` so the database can be found.
 
 ## Future improvements
