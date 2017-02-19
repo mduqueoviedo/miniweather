@@ -1,26 +1,58 @@
 require 'rails_helper'
+require 'byebug'
 
 RSpec.describe WeatherQuery do
-  describe '#query_weather' do
+  subject { WeatherQuery.new }
+
+  describe '#new' do
+    it 'initalizes the class' do
+      expect(subject).to be_a(WeatherQuery)
+    end
+  end
+
+  describe '#query' do
     it 'gets the weather' do
+      stub_request(
+        :get, "http://api.openweathermap.org/data/2.5/weather?q=Valladolid,%20Spain&units=metric#{Settings.weather_api.key}"
+      ).to_return(status: 200, body: CORRECT_API_RESPONSE.to_json, headers: {})
+
+      res = subject.query('Valladolid, Spain')
+
+      expect(res[:status]).to be true
+      expect(res[:weather_main]).to eq('Rain')
     end
 
-    it 'does not cause error when query has not ascii' do
+    it 'also works with non ascii requests' do
+      stub_request(
+        :get,
+        "http://api.openweathermap.org/data/2.5/weather?q=Valladolid,%20Espa%C3%B1a&units=metric#{Settings.weather_api.key}"
+      ).to_return(status: 200, body: CORRECT_API_RESPONSE.to_json, headers: {})
+
+      res = subject.query('Valladolid, España')
+
+      expect(res[:status]).to be true
     end
 
     it 'stores a log entry after each query' do
-      expect(WeatherQuery).to receive(:new).and_return(weather_query_double)
-      expect(weather_query_double)
-        .to receive(:query)
-        .with(nil, true)
-        .and_return(CORRECT_API_RESPONSE)
+      stub_request(
+        :get,
+        "http://api.openweathermap.org/data/2.5/weather?q=any%20query&units=metric#{Settings.weather_api.key}"
+      ).to_return(status: 200, body: CORRECT_API_RESPONSE.to_json, headers: {})
 
-      expect{ get :query_weather, params: { random: true } }.to change { WeatherLog.count }.by(1)
+      expect { subject.query('any query') }.to change { WeatherLog.count }.by(1)
     end
 
     context 'service not available' do
       it 'sends error to user' do
+        stub_request(
+          :get,
+          "http://api.openweathermap.org/data/2.5/weather?q=any%20query&units=metric#{Settings.weather_api.key}"
+        ).to_return(status: 500, body: nil, headers: {})
 
+        res = subject.query('any query')
+
+        expect(res[:status]).to be false
+        expect(res[:error_message]).not_to be_blank
       end
     end
   end

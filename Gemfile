@@ -20,8 +20,6 @@ gem 'angularjs-rails', '~> 1.6.0'
 gem 'ng-rails-csrf'
 
 # mongodb access
-gem 'kaminari'
-gem 'kaminari-mongoid'
 gem 'mongoid', '~> 6.0.0'
 
 # application config
@@ -43,13 +41,8 @@ group :test do
   gem 'rspec-rails'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
+  gem 'webmock'
 
   # test data fixtures
   gem 'factory_girl_rails'
-
-  # feature tests
-  gem 'capybara'
-  gem 'capybara-ng'
-  gem 'capybara-screenshot'
-  gem 'poltergeist'
 end

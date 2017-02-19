@@ -6,10 +6,6 @@ abort('The Rails environment is running in production mode!') if Rails.env.produ
 require 'spec_helper'
 require 'rspec/rails'
 
-require 'capybara/rails'
-require 'capybara/rspec'
-require 'capybara-screenshot/rspec'
-require 'capybara/poltergeist'
 require 'database_cleaner'
 
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
@@ -25,11 +21,6 @@ RSpec.configure do |config|
   # show exception that triggers a retry if verbose_retry is set to true
   config.display_try_failure_messages = true
 
-  # run retry only on features
-  config.around(:each, :js) do |example|
-    example.run_with_retry retry: 3
-  end
-
   DatabaseCleaner.strategy = :truncation
 
   config.before(:each) do
@@ -39,9 +30,4 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
-  Capybara.javascript_driver = :poltergeist
-  Capybara.save_and_open_page_path = 'tmp/capybara'
-  Capybara::Screenshot.autosave_on_failure = true
-  Capybara::Screenshot.prune_strategy = :keep_last_run
 end

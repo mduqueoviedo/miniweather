@@ -45,7 +45,7 @@ class WeatherQuery
         weather_main: response['weather'].first['main'],
         weather_description: response['weather'].first['description'],
         weather_icon: icon_url(response['weather'].first['icon']),
-        temp: response['main']['temp'],
+        temp: response['main']['temp'].round,
         temp_max: response['main']['temp_max'],
         temp_min: response['main']['temp_min'],
         wind_speed: response['wind']['speed'],

@@ -3,7 +3,7 @@
     <div class="form-group">
       <label class="sr-only" for="city">City</label>
       <div class="input-group col-xs-5">
-        <input type="text" class="form-control" id="city" placeholder="City, country (leave empty for random search)" 
+        <input type="text" class="form-control" id="city" placeholder="City, country (leave empty for random search)"
         name="city" ng-model="search.city">
         <div class="input-group-addon actionable" ng-click="getWeather(false)">
           <i class="fa fa-search" aria-hidden="true"></i>
@@ -77,7 +77,7 @@
       </table>
     </div>
     <div class="col-xs-6">
-      <strong>Previous queries (click on links to re-run the searches)</strong>
+      <strong>Previous 10 queries (click on links to re-run the searches)</strong>
       <table class="table table-bordered table-striped queries-table" ng-if="weatherLogs.length > 0">
         <thead>
           <tr>
