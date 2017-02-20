@@ -8,4 +8,4 @@ weather_api:
   icon_full_path: 'http://openweathermap.org/img/w/'
 mongodb:
   dev:
-    host: 192.168.99.100:27017
+    host: database:27017

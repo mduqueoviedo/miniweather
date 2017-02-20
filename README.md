@@ -30,11 +30,11 @@ Simply execute in the console:
 - `./bin/docker/start`
 To install and start the application. In the `bin/docker` folder there are several utility scripts to run the test suites, start, stop and restart the application, start a console and other functions (execute `./bin/docker/<script_name>` when in the project folder).
 
-**Important:** When running in systems that use docker-machine instead of native Docker (e.g. Windows 10 Home or lesser), the `localhost` url is not exposed and cannot be directly accessed in the browser.
+**Important:** 
 
-It's necessary to run `docker-machine ip` to get the IP of the generated docker-machine and use then that address in the browser `<ip_given>:3000`.
-
-In this case this IP needs to be updated also in `config/settings.yml` so the database can be found.
+- When running in systems that use docker-machine instead of native Docker (e.g. Windows 10 Home or lesser), the `localhost` url is not exposed and cannot be directly accessed in the browser.
+  It's necessary to run `docker-machine ip` to get the IP of the generated docker-machine and use then that address in the browser `<ip_given>:3000`.
+- For unix-based systems, updating permissions for execution of scripts after cloning might be neccesary (`chmod -R 755`)
 
 ## Future improvements
 
@@ -44,3 +44,4 @@ In this case this IP needs to be updated also in `config/settings.yml` so the da
 - Paginate the log view to show more of them.
 - Improve logging in general: Only basic information is stored.
 - Geolocalize the user so the application by default can show the weather in the user location.
+- Move the view elements to angular components.

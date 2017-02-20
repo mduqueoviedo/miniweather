@@ -11,3 +11,5 @@ config/environments/*.local.yml
 
 spec/examples.txt
 .byebug_history
+
+.idea/
